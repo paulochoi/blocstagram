@@ -7,6 +7,11 @@
 //
 
 #import "ImagesTableViewController.h"
+#import "DataSource.h"
+#import "Media.h"
+#import "User.h"
+#import "Comment.h"
+
 
 @interface ImagesTableViewController ()
 
@@ -23,15 +28,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    for (int i = 0 ; i <= 10; i++){
-        NSString *imageName = [NSString stringWithFormat:@"%d.jpg",i];
-        UIImage *image = [UIImage imageNamed:imageName];
-        
-        if (image){
-            [self.images addObject:image];
-        }
-    }
-    
+
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"imageCell"];
     
 }
@@ -45,7 +42,7 @@
     self = [super initWithStyle:style];
     
     if (self) {
-        self.images = [NSMutableArray array];
+
     }
     return self;
 }
@@ -56,7 +53,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return self.images.count;
+    
+    return [DataSource sharedInstance].mediaItems.count;
 }
 
 
@@ -79,8 +77,9 @@
         [cell.contentView addSubview:imageView];
     }
     
-    UIImage *image = self.images[indexPath.row];
-    imageView.image = image;
+    Media *item = [DataSource sharedInstance].mediaItems[indexPath.row];
+    imageView.image = item.image;
+    
     // Configure the cell...
     
     return cell;
@@ -88,7 +87,8 @@
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    UIImage *image = self.images[indexPath.row];
+    Media *item = [DataSource sharedInstance].mediaItems[indexPath.row];
+    UIImage *image = item.image;
     return (CGRectGetWidth(self.view.frame) / image.size.width) * image.size.height;
 }
 
