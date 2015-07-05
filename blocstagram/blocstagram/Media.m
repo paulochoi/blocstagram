@@ -7,8 +7,7 @@
 //
 
 #import "Media.h"
-#import <UIKit/UIKit.h>
-#import "User.h"
+
 
 @implementation Media
 
