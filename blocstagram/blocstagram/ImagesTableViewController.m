@@ -14,7 +14,7 @@
 #import "MediaTableViewCell.h"
 
 
-@interface ImagesTableViewController ()
+@interface ImagesTableViewController () 
 
 @end
 
