@@ -80,11 +80,18 @@
 }
 
 - (void) tableView: (UITableView *) tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Media *Item = [DataSource sharedInstance].mediaItems[indexPath.row];
-        [[DataSource sharedInstance] deleteMediaItem:Item];
+        [[DataSource sharedInstance] moveMediaItemToTop:Item];
     }
 }
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *newValue = @"Move To Top";
+    return newValue;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
