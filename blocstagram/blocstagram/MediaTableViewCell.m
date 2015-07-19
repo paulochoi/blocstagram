@@ -21,7 +21,6 @@
 @property (nonatomic,strong) NSLayoutConstraint *usernameAndCaptionLabelHeightConstraint;
 @property (nonatomic,strong) NSLayoutConstraint *commentLabelHeightConstraint;
 
-
 @end
 
 static UIFont *lightFont;
