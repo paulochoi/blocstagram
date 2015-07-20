@@ -29,6 +29,15 @@ NSString *const LoginViewControllerDidGetAccessTokenNotification = @"LoginViewCo
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    UIBarButtonItem *back = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Go Back"
+                                   style:UIBarButtonItemStylePlain
+                                   target:self
+                                   action:@selector(goBack:)];
+
+    self.navigationItem.leftBarButtonItem = back;
+    
+    
     UIWebView *webView = [UIWebView new];
     webView.delegate = self;
     
@@ -37,6 +46,11 @@ NSString *const LoginViewControllerDidGetAccessTokenNotification = @"LoginViewCo
     
     self.title = NSLocalizedString(@"Login", @"Login");
     
+    [self loadRequest];
+
+}
+
+- (void) loadRequest {
     NSString *urlString = [NSString stringWithFormat:@"https://instagram.com/oauth/authorize/?client_id=%@&redirect_uri=%@&response_type=token", [DataSource instagramClientID], [self redirectURI]];
     NSURL *url = [NSURL URLWithString:urlString];
     
@@ -44,6 +58,14 @@ NSString *const LoginViewControllerDidGetAccessTokenNotification = @"LoginViewCo
         NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
         [self.webView loadRequest:urlRequest];
     }
+}
+
+
+- (IBAction)goBack:(id)sender{
+//    NSLog(@"here");
+    
+    [self loadRequest];
+    
 }
 
 - (void)viewWillLayoutSubviews {
