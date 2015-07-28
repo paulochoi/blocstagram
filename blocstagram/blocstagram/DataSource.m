@@ -203,6 +203,10 @@
                         for (Media *mediaItem in self.mediaItems){
                             [self downloadImageForMediaItem:mediaItem];
                         }
+                        
+                        self.isRefreshing = NO;
+                        [self requestNewItemsWithCompletionHandler:nil];
+                        
                     } else {
                         [self populateDataWithParameters:nil completionHandler:nil];
                     }
