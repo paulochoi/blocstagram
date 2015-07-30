@@ -23,7 +23,6 @@
 @property (nonatomic,strong) Media *mediaItem;
 @property (nonatomic,weak) id <MediaTableViewCellDelegate> delegate;
 
-
 + (CGFloat) heightForMediaItem: (Media *) mediaItem width: (CGFloat) width ;
 
 
