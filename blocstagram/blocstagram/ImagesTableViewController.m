@@ -151,6 +151,13 @@
     
 }
 
+-(void)cell:(MediaTableViewCell *)cell didToubleTapWithMediaItem:(Media *)mediaItem{
+    NSLog(@"a");
+    mediaItem.image = nil;
+    [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+
+}
+
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     Media *item = [DataSource sharedInstance].mediaItems[indexPath.row];
