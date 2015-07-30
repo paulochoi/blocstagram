@@ -1,6 +1,6 @@
 //
 //  MediaFullScreenViewController.m
-//  blocstagram
+//  ;
 //
 //  Created by Paulo Choi on 7/27/15.
 //  Copyright (c) 2015 Paulo Choi. All rights reserved.
@@ -8,23 +8,26 @@
 
 #import "MediaFullScreenViewController.h"
 #import "Media.h"
+#import "Media+Share.h"
+
 
 @interface MediaFullScreenViewController () <UIScrollViewDelegate>
 
 @property (nonatomic,strong) Media *media;
 @property (nonatomic,strong) UITapGestureRecognizer *tap;
 @property (nonatomic,strong) UITapGestureRecognizer *doubleTap;
-
-
+@property (nonatomic,strong) UIButton *shareButton;
+@property (nonatomic,strong) MediaTableViewCell *cell;
 @end
 
-@implementation MediaFullScreenViewController
+@implementation MediaFullScreenViewController 
 
-- (instancetype) initWithMedia:(Media *)media {
+- (instancetype) initWithMedia:(Media *)media withCell:(MediaTableViewCell *) cell {
     self = [super init];
     
     if (self) {
         self.media = media;
+        self.cell = cell;
     }
     
     return self;
@@ -56,6 +59,11 @@
     
     [self.scrollView addGestureRecognizer:self.tap];
     [self.scrollView addGestureRecognizer:self.doubleTap];
+    
+    self.shareButton = [[UIButton alloc] init];
+    [self.shareButton setTitle:@"Share" forState:UIControlStateNormal];
+    [self.shareButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.shareButton];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -78,6 +86,8 @@
     
     self.scrollView.minimumZoomScale = minScale;
     self.scrollView.maximumZoomScale = 1;
+    
+    self.shareButton.frame = CGRectMake(10, 40, 60, 5);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -108,6 +118,18 @@
     }
 }
 
+-(void) buttonPressed: (UIButton *) sender{
+    
+    //[self dismissViewControllerAnimated:YES completion:nil];
+    
+    //ImagesTableViewController *controller = [ImagesTableViewController new];
+    
+    //[controller cell:self.cell didLongPressImageView:self.imageView];
+    
+    [self.media presentShareOnViewController:self];
+    
+    
+}
 #pragma mark - UIScrollViewDelegate
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
@@ -117,7 +139,6 @@
 - (void) scrollViewDidZoom:(UIScrollView *)scrollView{
     [self centerScrollView];
 }
-
 
 
 - (void)centerScrollView {

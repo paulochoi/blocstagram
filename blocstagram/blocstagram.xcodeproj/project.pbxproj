@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		00618835122AE1B63F234FB0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD09E8A7A4993EACC1A7CB2B /* libPods.a */; };
 		730DCABF1B671AB200C77FB3 /* MediaFullScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 730DCABE1B671AB200C77FB3 /* MediaFullScreenViewController.m */; };
+		730DCAC21B6804E600C77FB3 /* Media+Share.m in Sources */ = {isa = PBXBuildFile; fileRef = 730DCAC11B6804E600C77FB3 /* Media+Share.m */; };
 		7369FD071B4184CE00BE1CE0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7369FD061B4184CE00BE1CE0 /* main.m */; };
 		7369FD0A1B4184CE00BE1CE0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7369FD091B4184CE00BE1CE0 /* AppDelegate.m */; };
 		7369FD121B4184CE00BE1CE0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7369FD111B4184CE00BE1CE0 /* Images.xcassets */; };
@@ -47,6 +48,8 @@
 		25898D49FD576C4104631B48 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		730DCABD1B671AB100C77FB3 /* MediaFullScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaFullScreenViewController.h; sourceTree = "<group>"; };
 		730DCABE1B671AB200C77FB3 /* MediaFullScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaFullScreenViewController.m; sourceTree = "<group>"; };
+		730DCAC01B6804E600C77FB3 /* Media+Share.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Media+Share.h"; sourceTree = "<group>"; };
+		730DCAC11B6804E600C77FB3 /* Media+Share.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Media+Share.m"; sourceTree = "<group>"; };
 		7369FD011B4184CE00BE1CE0 /* blocstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = blocstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7369FD051B4184CE00BE1CE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7369FD061B4184CE00BE1CE0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -139,6 +142,8 @@
 				7369FD2A1B41861700BE1CE0 /* Images */,
 				7369FD3F1B41874900BE1CE0 /* ImagesTableViewController.h */,
 				7369FD401B41874900BE1CE0 /* ImagesTableViewController.m */,
+				730DCAC01B6804E600C77FB3 /* Media+Share.h */,
+				730DCAC11B6804E600C77FB3 /* Media+Share.m */,
 				7369FD4B1B4401D800BE1CE0 /* DataSource.h */,
 				7369FD4C1B4401D800BE1CE0 /* DataSource.m */,
 				73A64E731B5C673D00848642 /* LoginViewController.h */,
@@ -364,6 +369,7 @@
 				7369FD471B42FF3A00BE1CE0 /* Media.m in Sources */,
 				7369FD0A1B4184CE00BE1CE0 /* AppDelegate.m in Sources */,
 				73A64E751B5C673D00848642 /* LoginViewController.m in Sources */,
+				730DCAC21B6804E600C77FB3 /* Media+Share.m in Sources */,
 				7369FD4D1B4401D800BE1CE0 /* DataSource.m in Sources */,
 				7369FD071B4184CE00BE1CE0 /* main.m in Sources */,
 				7369FD411B41874900BE1CE0 /* ImagesTableViewController.m in Sources */,

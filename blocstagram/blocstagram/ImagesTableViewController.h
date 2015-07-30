@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class MediaTableViewCell;
+
 @interface ImagesTableViewController : UITableViewController
 
 @property (nonatomic, strong) NSMutableArray *images;
+
+
+-(void) cell:(MediaTableViewCell *)cell didLongPressImageView:(UIImageView *)imageView;
 
 
 @end
