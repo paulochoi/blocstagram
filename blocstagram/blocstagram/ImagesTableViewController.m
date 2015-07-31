@@ -18,6 +18,9 @@
 
 @interface ImagesTableViewController () <MediaTableViewCellDelegate>
 
+@property CGFloat firstImageHeight;
+@property BOOL firstImage;
+
 @end
 
 @implementation ImagesTableViewController
@@ -99,6 +102,8 @@
     self = [super initWithStyle:style];
     
     if (self) {
+        self.firstImageHeight = 350;
+        self.firstImage = true;
 
     }
     return self;
@@ -120,7 +125,40 @@
     }
 }
 
+
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    
+
+}
+
+-(void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    NSArray* indexPaths = [self.tableView indexPathsForVisibleRows];
+    
+    scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+    
+    NSLog(@"Here");
+    
+    if (scrollView.dragging == NO){
+        for (NSIndexPath *indexPath in indexPaths){
+            Media *mediaItem = [DataSource sharedInstance].mediaItems[indexPath.row];
+            if (mediaItem.downloadState == MediaDownloadStateNeedsImage){
+                [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+            }
+        }
+    }
+}
+
+
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+//    NSArray* indexPaths = [self.tableView indexPathsForVisibleRows];
+//    
+//    for (NSIndexPath *indexPath in indexPaths){
+//        Media *mediaItem = [DataSource sharedInstance].mediaItems[indexPath.row];
+//        if (mediaItem.downloadState == MediaDownloadStateNeedsImage){
+//            [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+//        }
+//    }
     [self infiniteScrollIfNecessary];
 }
 
@@ -155,24 +193,35 @@
 
     Media *item = [DataSource sharedInstance].mediaItems[indexPath.row];
     
+    if (item.downloadState == MediaDownloadStateNeedsImage || item.downloadState == MediaDownloadStateDownloadInProgress){
+        return self.firstImageHeight;
+        
+    } else if (item.downloadState == MediaDownloadStateHasImage) {
+        if (self.firstImage == true){
+            self.firstImageHeight = [MediaTableViewCell heightForMediaItem:item width:CGRectGetWidth(self.view.frame)];
+            self.firstImage = false;
+        }
+    }
+    
     return [MediaTableViewCell heightForMediaItem:item width:CGRectGetWidth(self.view.frame)];
+
 }
 
--(void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    Media *mediaItem = [DataSource sharedInstance].mediaItems[indexPath.row];
-    if (mediaItem.downloadState == MediaDownloadStateNeedsImage){
-        [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
-    }
-}
+//-(void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+//    Media *mediaItem = [DataSource sharedInstance].mediaItems[indexPath.row];
+//    if (mediaItem.downloadState == MediaDownloadStateNeedsImage){
+//        [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+//    }
+//}
 
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
     Media *item = [DataSource sharedInstance].mediaItems[indexPath.row];
     
     if (item.image){
-        return 350;
+        return self.firstImageHeight;
     } else {
-        return 150;
+        return self.firstImageHeight;
     }
 }
 
