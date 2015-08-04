@@ -124,6 +124,18 @@
     [self infiniteScrollIfNecessary];
 }
 
+
+- (void) cellDidPressLikeButton:(MediaTableViewCell *)cell {
+    Media *item = cell.mediaItem;
+    
+    [[DataSource sharedInstance] toggleLikeOnMediaItem:item withCompletionHandler:^{
+        if (cell.mediaItem == item){
+            cell.mediaItem = item;
+        }
+    }];
+    cell.mediaItem = item;
+
+}
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
