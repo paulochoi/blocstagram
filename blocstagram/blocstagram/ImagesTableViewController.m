@@ -128,6 +128,12 @@
 - (void) cellDidPressLikeButton:(MediaTableViewCell *)cell {
     Media *item = cell.mediaItem;
     
+    if (item.likeState == LikeStateLiked) {
+        item.likes--;
+    } else {
+        item.likes++;
+    }
+    
     [[DataSource sharedInstance] toggleLikeOnMediaItem:item withCompletionHandler:^{
         if (cell.mediaItem == item){
             cell.mediaItem = item;

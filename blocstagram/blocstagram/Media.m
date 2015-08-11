@@ -22,6 +22,10 @@
         NSString *standardResolutionImageURLString = mediaDictionary[@"images"][@"standard_resolution"][@"url"];
         NSURL *standardResolutionImageURL = [NSURL URLWithString:standardResolutionImageURLString];
         
+        self.likes = [mediaDictionary[@"likes"][@"count"] intValue];
+        NSLog(@"%ld",self.likes);
+        
+        
         if (standardResolutionImageURL) {
             self.mediaURL = standardResolutionImageURL;
             self.downloadState = MediaDownloadStateNeedsImage;
@@ -74,6 +78,7 @@
         self.caption = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(caption))];
         self.comments = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(comments))];
         self.likeState = [aDecoder decodeIntegerForKey:NSStringFromSelector(@selector(likeState))];
+        self.likes = [aDecoder decodeIntegerForKey:NSStringFromSelector(@selector(likes))];
     }
     
     return self;
@@ -87,6 +92,7 @@
     [aCoder encodeObject:self.caption forKey:NSStringFromSelector(@selector(caption))];
     [aCoder encodeObject:self.comments forKey:NSStringFromSelector(@selector(comments))];
     [aCoder encodeInteger:self.likeState forKey:NSStringFromSelector(@selector(likeState))];
+    [aCoder encodeInteger:self.likes forKey:NSStringFromSelector(@selector(likes))];
 }
 
 @end

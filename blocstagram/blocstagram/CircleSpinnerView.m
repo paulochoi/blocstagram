@@ -80,7 +80,7 @@
         
         CABasicAnimation *strokeStartAnimation = [CABasicAnimation animationWithKeyPath:@"strokeStart"];
         strokeStartAnimation.fromValue = @0.015;
-        strokeStartAnimation.toValue = @0.515;
+        strokeStartAnimation.toValue = @0.915;
         
         CABasicAnimation *strokeEndAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
         strokeEndAnimation.fromValue = @0.485;
