@@ -16,6 +16,9 @@
 @property (nonatomic, strong) CropBox *cropBox;
 @property (nonatomic, assign) BOOL hasLoadedOnce;
 
+@property (nonatomic, strong) UIToolbar *topView;
+@property (nonatomic, strong) UIToolbar *bottomView;
+
 @end
 
 @implementation CropImageViewController
@@ -29,6 +32,15 @@
         self.media.image = sourceImage;
         
         self.cropBox = [CropBox new];
+        self.topView = [UIToolbar new];
+        self.bottomView = [UIToolbar new];
+        
+        UIColor *whiteBG = [UIColor colorWithWhite:1.0 alpha:0.15];
+
+        self.topView.barTintColor = whiteBG;
+        self.bottomView.barTintColor = whiteBG;
+        self.topView.alpha = 0.5;
+        self.bottomView.alpha = 0.5;
     }
     
     return self;
@@ -41,7 +53,11 @@
     
     self.view.clipsToBounds = YES;
     
+    
+    
     [self.view addSubview:self.cropBox];
+    [self.view addSubview:self.topView];
+    [self.view addSubview:self.bottomView];
     
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Crop", @"Crop command") style:UIBarButtonItemStyleDone target:self action:@selector(cropPressed:)];
     
@@ -56,15 +72,24 @@
 - (void) viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
+    CGSize size = self.view.frame.size;
+    CGFloat width = CGRectGetWidth(self.view.bounds);
+    self.topView.frame = CGRectMake(0, self.topLayoutGuide.length, width, 44);
+
     CGRect cropRect = CGRectZero;
     
     CGFloat edgeSize = MIN(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     cropRect.size = CGSizeMake(edgeSize, edgeSize);
-    
-    CGSize size = self.view.frame.size;
+    cropRect.origin = CGPointMake(0, CGRectGetMaxY(self.topView.frame));
     
     self.cropBox.frame = cropRect;
     self.cropBox.center = CGPointMake(size.width / 2, size.height / 2);
+
+    CGFloat yOriginOfBottomView = CGRectGetMaxY(self.topView.frame) + edgeSize;
+    CGFloat heightOfBottomView = CGRectGetHeight(self.view.frame) - yOriginOfBottomView;
+    
+    self.bottomView.frame = CGRectMake(0, yOriginOfBottomView, width, heightOfBottomView);
+
     self.scrollView.frame = self.cropBox.frame;
     self.scrollView.clipsToBounds = NO;
     
