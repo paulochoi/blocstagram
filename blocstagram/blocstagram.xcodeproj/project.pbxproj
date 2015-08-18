@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00618835122AE1B63F234FB0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD09E8A7A4993EACC1A7CB2B /* libPods.a */; };
+		730C10731B82996E0059ACC5 /* PostToInstagramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 730C10721B82996E0059ACC5 /* PostToInstagramViewController.m */; };
 		730DCABF1B671AB200C77FB3 /* MediaFullScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 730DCABE1B671AB200C77FB3 /* MediaFullScreenViewController.m */; };
 		732282571B7FF173008C287E /* UIImage+ImageUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 732282561B7FF173008C287E /* UIImage+ImageUtilities.m */; };
 		7322825A1B816384008C287E /* CropBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 732282591B816384008C287E /* CropBox.m */; };
@@ -54,6 +55,8 @@
 
 /* Begin PBXFileReference section */
 		25898D49FD576C4104631B48 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		730C10711B82996E0059ACC5 /* PostToInstagramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostToInstagramViewController.h; sourceTree = "<group>"; };
+		730C10721B82996E0059ACC5 /* PostToInstagramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostToInstagramViewController.m; sourceTree = "<group>"; };
 		730DCABD1B671AB100C77FB3 /* MediaFullScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaFullScreenViewController.h; sourceTree = "<group>"; };
 		730DCABE1B671AB200C77FB3 /* MediaFullScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaFullScreenViewController.m; sourceTree = "<group>"; };
 		732282551B7FF173008C287E /* UIImage+ImageUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageUtilities.h"; sourceTree = "<group>"; };
@@ -197,6 +200,8 @@
 				7327026C1B7CB1A0009A6A3D /* CameraToolbar.m */,
 				737526A01B7CDFB500A58770 /* CameraViewController.h */,
 				737526A11B7CDFB500A58770 /* CameraViewController.m */,
+				730C10711B82996E0059ACC5 /* PostToInstagramViewController.h */,
+				730C10721B82996E0059ACC5 /* PostToInstagramViewController.m */,
 				732282581B816384008C287E /* CropBox.h */,
 				732282591B816384008C287E /* CropBox.m */,
 				732282551B7FF173008C287E /* UIImage+ImageUtilities.h */,
@@ -414,6 +419,7 @@
 				7369FD471B42FF3A00BE1CE0 /* Media.m in Sources */,
 				7327026D1B7CB1A0009A6A3D /* CameraToolbar.m in Sources */,
 				7369FD0A1B4184CE00BE1CE0 /* AppDelegate.m in Sources */,
+				730C10731B82996E0059ACC5 /* PostToInstagramViewController.m in Sources */,
 				73A64E751B5C673D00848642 /* LoginViewController.m in Sources */,
 				7337D50E1B6BBC7900D9EC6D /* LikeButton.m in Sources */,
 				7369FD4D1B4401D800BE1CE0 /* DataSource.m in Sources */,
