@@ -7,6 +7,7 @@
 //
 
 #import "PostToInstagramViewController.h"
+#import "FilterCollectionViewCell.h"
 
 @interface PostToInstagramViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIDocumentInteractionControllerDelegate>
 
@@ -41,7 +42,8 @@
         self.navigationItem.rightBarButtonItem = self.sendBarButton;
     }
     
-    [self.filterCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    //[self.filterCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    [self.filterCollectionView registerClass:[FilterCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.filterCollectionView.backgroundColor = [UIColor whiteColor];
@@ -143,36 +145,39 @@
 }
 
 - (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+//    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+//    
+//    static NSInteger imageViewTag = 1000;
+//    static NSInteger labelTag = 1001;
+//    
+//    UIImageView *thumbnail = (UIImageView *)[cell.contentView viewWithTag:imageViewTag];
+//    UILabel *label = (UILabel *)[cell.contentView viewWithTag:labelTag];
     
-    static NSInteger imageViewTag = 1000;
-    static NSInteger labelTag = 1001;
+   FilterCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
-    UIImageView *thumbnail = (UIImageView *)[cell.contentView viewWithTag:imageViewTag];
-    UILabel *label = (UILabel *)[cell.contentView viewWithTag:labelTag];
+   UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.filterCollectionView.collectionViewLayout;
+   CGFloat thumbnailEdgeSize = flowLayout.itemSize.width;
     
-    UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.filterCollectionView.collectionViewLayout;
-    CGFloat thumbnailEdgeSize = flowLayout.itemSize.width;
+    NSLog(@"%f", thumbnailEdgeSize);
+//    if (!thumbnail) {
+//        thumbnail = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, thumbnailEdgeSize, thumbnailEdgeSize)];
+//        thumbnail.contentMode = UIViewContentModeScaleAspectFill;
+//        thumbnail.tag = imageViewTag;
+//        thumbnail.clipsToBounds = YES;
+//        
+//        [cell.contentView addSubview:thumbnail];
+//    }
+//    
+//    if (!label) {
+//        label = [[UILabel alloc] initWithFrame:CGRectMake(0, thumbnailEdgeSize, thumbnailEdgeSize, 20)];
+//        label.tag = labelTag;
+//        label.textAlignment = NSTextAlignmentCenter;
+//        label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:10];
+//        [cell.contentView addSubview:label];
+//    }
     
-    if (!thumbnail) {
-        thumbnail = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, thumbnailEdgeSize, thumbnailEdgeSize)];
-        thumbnail.contentMode = UIViewContentModeScaleAspectFill;
-        thumbnail.tag = imageViewTag;
-        thumbnail.clipsToBounds = YES;
-        
-        [cell.contentView addSubview:thumbnail];
-    }
-    
-    if (!label) {
-        label = [[UILabel alloc] initWithFrame:CGRectMake(0, thumbnailEdgeSize, thumbnailEdgeSize, 20)];
-        label.tag = labelTag;
-        label.textAlignment = NSTextAlignmentCenter;
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:10];
-        [cell.contentView addSubview:label];
-    }
-    
-    thumbnail.image = self.filterImages[indexPath.row];
-    label.text = self.filterTitles[indexPath.row];
+    cell.thumbnail.image = self.filterImages[indexPath.row];
+    cell.label.text = self.filterTitles[indexPath.row];
     
     return cell;
 }
@@ -209,8 +214,37 @@
 - (void) addFiltersToQueue {
     CIImage *sourceCIImage = [CIImage imageWithCGImage:self.sourceImage.CGImage];
     
-    // Noir filter
+    // Mono filter
+    [self.photoFilterOperationQueue addOperationWithBlock:^{
+        CIFilter *monoFilter = [CIFilter filterWithName:@"CIPhotoEffectMono"];
+        
+        if (monoFilter) {
+            [monoFilter setValue:sourceCIImage forKey:kCIInputImageKey];
+            [self addCIImageToCollectionView:monoFilter.outputImage withFilterTitle:NSLocalizedString(@"Mono", @"Mono Filter")];
+        }
+    }];
     
+    // Combo Filter
+    [self.photoFilterOperationQueue addOperationWithBlock:^{
+        CIFilter *monoFilter = [CIFilter filterWithName:@"CIPhotoEffectMono"];
+        CIFilter *sephia = [CIFilter filterWithName:@"CISepiaTone"];
+        
+        if (monoFilter) {
+            [monoFilter setValue:sourceCIImage forKey:kCIInputImageKey];
+            
+            CIImage *result = monoFilter.outputImage;
+            
+            if (sephia) {
+                [sephia setValue:result forKeyPath:kCIInputImageKey];
+                result = sephia.outputImage;
+            }
+            
+            
+            [self addCIImageToCollectionView:result withFilterTitle:NSLocalizedString(@"Combo", @"Combo Filter")];
+        }
+    }];
+    
+    // Noir filter
     [self.photoFilterOperationQueue addOperationWithBlock:^{
         CIFilter *noirFilter = [CIFilter filterWithName:@"CIPhotoEffectNoir"];
         

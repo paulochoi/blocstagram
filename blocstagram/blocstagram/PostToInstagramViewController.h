@@ -10,6 +10,7 @@
 
 @interface PostToInstagramViewController : UIViewController
 
+
 - (instancetype) initWithImage:(UIImage *)sourceImage;
 
 @end

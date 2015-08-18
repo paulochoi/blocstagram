@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FilterCollectionViewCell : UICollectionViewCell
 
+@interface FilterCollectionViewCell : UICollectionViewCell
+@property (nonatomic, strong) UIImageView *thumbnail;
+@property (nonatomic, strong) UILabel *label;
 @end
