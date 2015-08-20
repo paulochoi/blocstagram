@@ -13,7 +13,7 @@
 
 @property (nonatomic,strong) UITapGestureRecognizer *tap;
 @property (nonatomic,strong) UITapGestureRecognizer *doubleTap;
-
+@property (nonatomic,strong) UITapGestureRecognizer *tapOutside;
 
 @end
 
@@ -51,11 +51,14 @@
     self.doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapFired:)];
     self.doubleTap.numberOfTapsRequired = 2;
     
+    
     [self.tap requireGestureRecognizerToFail:self.doubleTap];
     
     [self.scrollView addGestureRecognizer:self.tap];
     [self.scrollView addGestureRecognizer:self.doubleTap];
 }
+
+
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -112,6 +115,8 @@
         [self.scrollView setZoomScale:self.scrollView.minimumZoomScale animated:YES];
     }
 }
+
+
 
 #pragma mark - UIScrollViewDelegate
 

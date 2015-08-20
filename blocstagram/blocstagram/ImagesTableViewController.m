@@ -25,6 +25,7 @@
 @property (nonatomic, weak) UIImageView *lastTappedImageView;
 @property (nonatomic, weak) UIView *lastSelectedCommentView;
 @property (nonatomic, assign) CGFloat lastKeyboardAdjustement;
+@property (nonatomic, strong) UITapGestureRecognizer *tapBehindGesture;
 
 @end
 
@@ -57,6 +58,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    self.tapBehindGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBehindDetected:)];
+    [self.tapBehindGesture setNumberOfTapsRequired:1];
+    [self.tapBehindGesture setCancelsTouchesInView:NO];
+    [self.view.window addGestureRecognizer:self.tapBehindGesture];
     
 }
 
@@ -194,6 +200,7 @@
     MediaFullScreenViewController *fullScreenVC = [[MediaFullScreenViewController alloc] initWithMedia:cell.mediaItem];
     
     if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
+        
         fullScreenVC.modalPresentationStyle = UIModalPresentationFormSheet;
     } else {
         fullScreenVC.modalPresentationStyle = UIModalPresentationCustom;
@@ -201,6 +208,22 @@
     
     [self presentViewController:fullScreenVC animated:YES completion:nil];
     
+}
+
+- (void)tapBehindDetected:(UITapGestureRecognizer *)sender
+{
+    
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        CGPoint location = [sender locationInView:nil];
+        
+        if (![self.presentedViewController.view pointInside:[self.presentedViewController.view convertPoint:location fromView:self.view.window] withEvent:nil])
+        {
+            if(self.presentedViewController) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }
+    }
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
