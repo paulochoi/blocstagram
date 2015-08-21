@@ -42,5 +42,31 @@
 }
 
 
+- (void)testThatMediaInitializationWorks
+{
+    
+    NSDictionary *picURL = @{@"url" : @"http://www.example.com/example.jpg"};
+
+    NSDictionary *pic = @{@"standard_resolution" : picURL};
+    
+//    NSDictionary *sourceDictionary = @{@"id": @"8675309",
+//                                       @"username" : @"d'oh",
+//                                       @"full_name" : @"Homer Simpson",
+//                                       @"profile_picture" : @"http://www.example.com/example.jpg"};
+    
+    
+    NSDictionary *sourceDictionary = @{@"id" : @"8675309",
+                                       @"user" : @"d'oh"};
+
+    
+    Media *testMedia = [[Media alloc] initWithDictionary:sourceDictionary];
+    
+    
+    XCTAssertEqualObjects(testMedia.idNumber, sourceDictionary[@"id"], @"The ID number should be equal");
+    XCTAssertEqualObjects(testMedia.user, sourceDictionary[@"user"], @"The username should be equal");
+    XCTAssertEqualObjects(testMedia.mediaURL, sourceDictionary[@"images"][@"standard_resolution"][@"url"], @"The pic should be equal");
+    XCTAssertEqualObjects(testMedia.caption, sourceDictionary[@"caption"], @"The profile picture should be equal");
+}
+
 
 @end
