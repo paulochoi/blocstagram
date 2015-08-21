@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "User.h"
+#import "Media.h"
 
 @interface UserTests : XCTestCase
 
