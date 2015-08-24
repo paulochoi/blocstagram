@@ -14,6 +14,8 @@
 @property (nonatomic,strong) UITapGestureRecognizer *tap;
 @property (nonatomic,strong) UITapGestureRecognizer *doubleTap;
 @property (nonatomic,strong) UITapGestureRecognizer *tapOutside;
+@property (nonatomic, strong) UITapGestureRecognizer *tapBehindGesture;
+
 
 @end
 
@@ -56,8 +58,13 @@
     
     [self.scrollView addGestureRecognizer:self.tap];
     [self.scrollView addGestureRecognizer:self.doubleTap];
-}
+    
+    self.tapBehindGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBehindDetected:)];
+    [self.tapBehindGesture setNumberOfTapsRequired:1];
+    [self.tapBehindGesture setCancelsTouchesInView:NO];
+    [self.super addGestureRecognizer:self.tapBehindGesture];
 
+}
 
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -115,6 +122,25 @@
         [self.scrollView setZoomScale:self.scrollView.minimumZoomScale animated:YES];
     }
 }
+
+
+- (void)tapBehindDetected:(UITapGestureRecognizer *)sender
+{
+    
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        CGPoint location = [sender locationInView:nil];
+        
+        if (![self.presentedViewController.view pointInside:[self.presentedViewController.view convertPoint:location fromView:self.view.window] withEvent:nil])
+        {
+            if(self.presentedViewController) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }
+    }
+}
+
+
 
 
 
